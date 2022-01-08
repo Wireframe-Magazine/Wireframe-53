@@ -2,24 +2,28 @@
 import pgzrun
 import math
 import random
-from pygame import image, Color
+from pygame import image, Color, surface
+from pgzero.builtins import Actor, animate, keyboard
+import pygame
 WIDTH = 600
 HEIGHT = 800
-collisionMap = image.load('images/background.png')
-flipperLeft = Actor('flipperl',center=(210,660), anchor=(20, 20))
+collisionMap = image.load('./images/background.png')
+flipperLeft = Actor('flipperl.png', center=(210,660), anchor=(20, 20))
 flipperLeft.angle = -30
-flipperRight = Actor('flipperr',center=(390,660), anchor=(112, 20))
+flipperRight = Actor('flipperr.png', center=(390,660), anchor=(112, 20))
 flipperRight.angle = 30
+(width, height) = (300, 200)
+pygame = pygame.display.set_mode((width, height))
 
 def init():
     global gamestate, ball
-    ball = Actor('ball', center=(560,310))
+    ball = Actor('ball.png', center=(560,310))
     ball.speed = 5 + random.randint(0, 7)
     ball.dir = 4 + ((random.randint(0, 10)/10)-0.5)
     gamestate = 0
 
 def draw():
-    screen.blit("background", (0, 0))
+    pygame.blit(collisionMap, (0, 0))
     flipperLeft.draw()
     flipperRight.draw()
     if gamestate == 0 or random.randint(0,1) == 1: ball.draw()
